@@ -1,26 +1,29 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="container">
+    <div class="row">
+      <div class="d-flex align-items-center justify-content-center my-3">
+        <img
+          src="https://pinia.vuejs.org/logo.svg"
+          alt=""
+          style="width: 40px"
+        />
+        <h4 class="text-warning text-center">Pinia Blog</h4>
+      </div>
+      <div class="col-md-6 offset-md-3">
+        <BlogCreate/>
+        <BlogItem v-for="blog in blogs" :key="blog.id" :blog="blog"/>
+      </div>
+    </div>
+  </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import BlogCreate from './components/BlogCreate.vue';
+import BlogItem from './components/BlogItem.vue';
+import { useBlogStore} from './store/index.js'
+import { storeToRefs } from 'pinia';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const blogStore = useBlogStore()
+const {blogs} = storeToRefs(blogStore)
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
